@@ -19,8 +19,13 @@ const UserSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: 'Thought'
             }
-        ]//,
-        //friends: [UserSchema]
+        ],
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User'
+            }
+        ]
     },
     {
         toJSON: {
@@ -31,9 +36,10 @@ const UserSchema = new Schema(
     }
 );
 
-// UserSchema.virtual('friendCount').get(function() {
-//     return this.friends.length;
-// });
+//get total count of friends on retrieval
+UserSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+});
 
 // get total count of comments and replies on retrieval
 UserSchema.virtual('thoughtCount').get(function() {
@@ -41,7 +47,7 @@ UserSchema.virtual('thoughtCount').get(function() {
       (total, thought) => total + thought.reactions.length + 1,
       0
     );
-  });
+});
 
 const User = model('User', UserSchema);
 
