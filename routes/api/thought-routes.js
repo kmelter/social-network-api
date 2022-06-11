@@ -6,10 +6,10 @@ const {
   removeReaction
 } = require('../../controllers/thought-controller');
 
-// /api/comments/<userId>
+// /api/thoughts/<userId>
 router.route('/:userId').post(addThought);
 
-// /api/comments/<pizzaId>/<commentId>
+// /api/thoughts/<userId>/<thoughtId>
 router
   .route('/:userId/:thoughtId')
   .put(addReaction)
